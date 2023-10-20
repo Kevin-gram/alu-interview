@@ -3,23 +3,17 @@
 ''' Function that creates Pascal Triangle '''
 
 def pascal_triangle(n):
+
+    '''returning empty list if n is less than or equal to 0'''
     if n <= 0:
         return []
-    elif n == 1:
-        return [[1]]
 
-    previous_triangle = pascal_triangle(n - 1)
-    previous_row = previous_triangle[-1]
-    current_row = [1]
+    this_triangle = [[1]]
+    for i in range(1, n):
+        row = [1]
+        for j in range(1, i):
+            row.append(this_triangle[i-1][j-1] + this_triangle[i-1][j])
+        row.append(1)
+        this_triangle.append(row)
 
-    for i in range(1, n - 1):
-        current_row.append(previous_row[i - 1] + previous_row[i])
-
-    current_row.append(1)
-    return previous_triangle + [current_row]
-
-n = 5
-result = pascal_triangle(n)
-for row in result:
-    print(row)
-
+    return this_triangle
